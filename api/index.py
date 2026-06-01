@@ -1,15 +1,24 @@
 from http.server import BaseHTTPRequestHandler
 import json
+import os
+import random
+from google import genai
+
+# API Key setup
+API_KEYS_STR = os.environ.get("GEMINI_API_KEYS", "")
+API_KEYS = API_KEYS_STR.split(",")
 
 class handler(BaseHTTPRequestHandler):
-    
-    # GET রিকোয়েস্ট হ্যান্ডেল করার জন্য
     def do_GET(self):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        self.wfile.write(b"AI Tutor is running! Please use POST to send a query.")
+        self.wfile.write(b"AI Tutor is running. Please send a POST request.")
 
-    # POST রিকোয়েস্ট হ্যান্ডেল করার জন্য (যেখানে আপনার জেমিনি লজিক আছে)
     def do_POST(self):
-        # ... আপনার বর্তমান জেমিনি কোড এখানে থাকবে ...
+        content_length = int(self.headers['Content-Length'])
+        post_data = self.rfile.read(content_length)
+        # আপনার বাকি জেমিনি লজিক এখানে থাকবে...
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Response from AI")
