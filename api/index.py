@@ -1,18 +1,15 @@
-import os
-import json
-import random
 from http.server import BaseHTTPRequestHandler
-from google import genai
-
-# এখানে ৭টি কি কমা দিয়ে আলাদা করে এনভায়রনমেন্ট ভেরিয়েবলে দিবেন
-# Vercel-এ Key হবে: GEMINI_API_KEYS (পুরো স্ট্রিংটি এখানে দিবেন)
-API_KEYS_STR = os.environ.get("GEMINI_API_KEYS", "")
-API_KEYS = API_KEYS_STR.split(",")
+import json
 
 class handler(BaseHTTPRequestHandler):
+    
+    # GET রিকোয়েস্ট হ্যান্ডেল করার জন্য
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write(b"AI Tutor is running! Please use POST to send a query.")
+
+    # POST রিকোয়েস্ট হ্যান্ডেল করার জন্য (যেখানে আপনার জেমিনি লজিক আছে)
     def do_POST(self):
-        # ... (আপনার আগের কোড)
-        # এখানে কি রোটেশন লজিক ব্যবহার করুন:
-        current_key = random.choice(API_KEYS)
-        client = genai.Client(api_key=current_key)
-        # ...
+        # ... আপনার বর্তমান জেমিনি কোড এখানে থাকবে ...
